@@ -25,7 +25,7 @@ SECRET_KEY = '6d7^8$o$rpwz_b!h4fxdp#z-0%l70q(i1&$(^jns%xm0r69f!y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['warm-ravine-90901.herokuapp.com']
 
 
 # Application definition
