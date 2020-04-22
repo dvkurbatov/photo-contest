@@ -1,0 +1,44 @@
+.card {
+  margin: 5px;
+}
+.card-header {
+  padding: 5px 5px;
+  text-align: center;
+}
+.card-header > h6 {
+  margin: 0px;
+}
+.card-body {
+  margin: 5px;
+  padding: 0px;
+}
+.author-photo {
+  margin: 0px;
+  padding: 0px;
+  font-style: italic;
+  font-size: 0.9em;
+}
+.heading {
+  padding: 20px 10px;
+  text-align: center;
+}
+.field {
+  padding: 5px 0px;
+}
+.glyphicon {
+  font-size: 1em;
+  margin-right: 5px;
+}
+.count-likes {
+  font-size: 1.1em;
+}
+.red {
+  color: red;
+}
+
+/*span.add-like.card-link.glyphicon.glyphicon-heart{
+  text-align: top;
+}*/
+/*.detail {
+  text-align: left;
+}*/

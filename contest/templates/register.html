@@ -1,0 +1,55 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+  <title>Registration</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+  <div class="col-6 heading">
+    <h1 >Registration</h1>
+  </div>
+</div>
+
+
+<form method="post">{% csrf_token %}
+
+
+    <div class="row justify-content-center">
+      <div class="col-6">
+        {% for field in form %}
+        <div class="row justify-content-between field">
+          <div class="col-6">{{ field.label_tag }}</div>
+          <div class="col-6">{{ field }}</div>
+        </div>
+         {% endfor %}
+         <input type="submit" value="Save">
+         <div> or <a class="" href="{% url 'social:begin' 'google-oauth2' %}">
+        Authenticate with google account
+      </a></div>
+      <a href="/login/vk-oauth2"><img src="/static/lvk.png" class="avatar-3" data-toggle="tooltip" ></a>
+
+
+
+         <div ></div>
+         <!-- <div class="row justify-content-between">
+          <div class="col-2"><input type="submit" value="Save"></div>
+
+           or
+           <div class="col-7"><a class="" href="{% url 'social:begin' 'google-oauth2' %}">
+        Authenticate with google account
+      </a></div> -->
+
+         </div>
+
+      </div>
+  </div>
+    <!-- <div class="col-sm-3">{{ field.label_tag }}</div>
+      <div class="col-sm-5">{{ field }}</div> -->
+
+
+
+  </form>
+
+{% endblock%}

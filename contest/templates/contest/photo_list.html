@@ -1,0 +1,16 @@
+{% extends 'base_template.html' %}
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<h1> List of Photos </h1>
+
+  <div class ='row row-cols-4'>
+{% for photo in photo_list %}
+
+{% include "contest/photo.html" with objects=photo %}
+
+{% endfor %}
+</div>
+
+{% endblock %}

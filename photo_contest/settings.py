@@ -25,7 +25,7 @@ SECRET_KEY = '6d7^8$o$rpwz_b!h4fxdp#z-0%l70q(i1&$(^jns%xm0r69f!y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['warm-ravine-90901.herokuapp.com']
+ALLOWED_HOSTS = ['warm-ravine-90901.herokuapp.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap4',
+    'social_django',
+    'contest',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +58,7 @@ ROOT_URLCONF = 'photo_contest.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,9 +133,29 @@ STATIC_URL = '/static/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
 # Heroku: Update database configuration from $DATABASE_URL.
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.vk.VKOAuth2',
+)
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '236129590636-8j2qfmaajpj0igjuq5q6cij8ojvs3etv.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '24ROgYfp8LSg4_ABLqtPsnxj'
+SOCIAL_AUTH_VK_OAUTH2_KEY = '7425297'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'KWf53Azq6kgdoWVa8E0z'
+SOCIAL_AUTH_VK_OAUTH2_SCOPE = ['email']
+
+LOGIN_URL = '/auth/login/google-oauth2/'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+

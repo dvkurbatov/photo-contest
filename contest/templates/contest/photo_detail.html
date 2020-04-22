@@ -1,0 +1,111 @@
+{% extends 'base_template.html' %}
+
+{% block title %}
+<title>Photo Details </title>
+{% endblock %}
+
+{% block content %}
+<h1>Photo details </h1>
+
+<div class="row">
+  <div class="col-7">
+    <div class="card">
+  <div class="card-header detail">
+      {{ photo.title }}
+
+  </div>
+  <img class="card-img-top" src="{{ photo.image.url }}">
+  <div class="card-body row justify-content-between">
+    <div class="author-photo ">
+      <span>by {{ photo.author }}</span>
+    </div>
+    <div data-photo-id="{{ photo.id }}">
+      {% if current_user_like_photo %}
+        <span class="delete-like card-link glyphicon glyphicon-heart" style="color:red">{{ photo.like_set.count }}</span>
+      {% else %}
+        <span class="add-like card-link glyphicon glyphicon-heart" style="color:gray">{{ photo.like_set.count }}</span>
+      {% endif %}
+    </div>
+  </div>
+</div>
+  </div>
+
+
+
+
+  <div class="col-5">
+    <h2>Bloc comments</h2>
+    <div class='card'>
+      <div class="card-header"></div>
+      <div class="card-body"></div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% if user.is_authenticated %}
+{% block javascript %}
+<script>
+    function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+              var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+              }
+            }
+          }
+          return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+
+    $(document).on('click', '.add-like', function (e) {
+        $.ajax({
+            type: 'POST',
+            url: "/photos/" + $(this).parent().attr('data-photo-id') + "/create_like/",
+            data: {csrfmiddlewaretoken: getCookie('csrftoken')},
+            success: function (response) {
+              console.log('SUCCESS');
+                // on successfull creating object
+                // 1. clear the form.
+                console.log($('.glyphicon.glyphicon-heart'));
+
+                $('.add-like').replaceWith("<span class='delete-like card-link glyphicon glyphicon-heart' style='color:red'>" + response.likes_count + "</span>");
+                console.log(response.likes_count);
+                console.log('SUCCESS');
+
+
+                // display the newly friend to table.
+
+
+            },
+            error: function (response) {
+                // alert the error if any error occured
+                console.log('Error')
+            }
+        })
+    })
+    $(document).on('click', '.delete-like', function (e) {
+        $.ajax({
+            type: 'POST',
+            url: $(this).parent().attr('data-photo-id') + "/delete_like/",
+            data: {csrfmiddlewaretoken: getCookie('csrftoken')},
+            success: function (response) {
+                console.log('success');
+                $(".delete-like").replaceWith("<span class='add-like card-link glyphicon glyphicon-heart' style='color:gray'>" + response.likes_count + "</span>");
+
+            },
+            error: function (response) {
+              console.log('Error');
+            }
+        })
+    })
+
+</script>
+{% endblock %}
+{% endif %}
