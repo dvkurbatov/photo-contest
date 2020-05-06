@@ -9,19 +9,21 @@
   </div>
 </div>
 <span>
+  {% if photo_list %}
   <span>Упорядочить по:</span>
-  <a class='sort' href="?order={{ znak }}title">По имени</a>
+  <a class='sort' href="?order=title">По имени</a>
   <a class='sort' href="?order=created_at">По дате загрузки</a>
-  <p>{{ f_order }}</p>
-  <p>{{ znak }}</p>
 </span>
+{% endif %}
+
+
 <div class ='row row-cols-4'>
 {% for photo in photo_list %}
-
-{% include "contest/photo.html" with objects=photo %}
-
+    {% include "contest/photo.html" with objects=photo %}
 {% endfor %}
 </div>
+
+{% if photo_list %}
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
@@ -39,31 +41,7 @@
         {% endif %}
     </span>
 </div>
+{% endif %}
 
 {% endblock %}
-{% block javascript %}
-<script>
-    function getCookie(name) {
-          var cookieValue = null;
-          if (document.cookie && document.cookie !== '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-              var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-              if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-              }
-            }
-          }
-          return cookieValue;
-        }
-        var csrftoken = getCookie('csrftoken');
 
-    $(document).on('click', '.sort', function (e) {
-      console.log($(this));
-    })
-
-
-</script>
-{% endblock %}

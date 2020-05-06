@@ -25,7 +25,7 @@ class Photo(models.Model):
 
   def image_tag(self):
     from django.utils.html import escape
-    return mark_safe('<img src="%s" />'.format(self.thumb_for_gallery.url))
+    return mark_safe('<img src="%s" />' % (self.thumb_for_gallery.url))
 
   def likes_count(self):
     return self.like_set.all().count()
