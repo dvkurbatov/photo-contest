@@ -1,19 +1,19 @@
 <div class='col'>
 <div class="card">
   <div class="card-header">
-      <h6> {{ photo.title }} </h6>
+    <h6> {{ photo.title }} </h6>
   </div>
-
   <a href="{{ photo.get_absolute_url }}">
-    <img class="card-img-top" src="{{ photo.image.url }}">
+    <img class="card-img-top" src="{{ photo.thumb_for_gallery.url }}">
   </a>
-
   <div class="card-body row justify-content-between">
     <div class="author-photo">
       <span>by {{ photo.author }}</span>
     </div>
     <div data-photo-id="{{ photo.id }}">
-        <span class="add-like card-link glyphicon glyphicon-heart" style="color:gray">{{ photo.like_set.count }}</span>
+      <span class="add-like card-link glyphicon glyphicon-heart" style="color:gray">
+        {{ photo.like_set.count }}
+      </span>
     </div>
   </div>
 </div>

@@ -35,6 +35,12 @@
 .red {
   color: red;
 }
+textarea {
+  width: 625px;
+  height: 100px;
+  margin: 5px;
+}
+
 
 /*span.add-like.card-link.glyphicon.glyphicon-heart{
   text-align: top;

@@ -5,16 +5,29 @@
 {% endblock %}
 
 {% block content %}
-<h1> Log In</h1>
-
-<form method="POST">{% csrf_token %}
-  {% for field in form %}
-    <div class="row">
-    <div class="col-sm-3">{{ field.label_tag }}</div>
-      <div class="col-sm-5">{{ field }}</div>
+<div class="row justify-content-center">
+  <div class="col-6 heading">
+    <h1 >Login</h1>
   </div>
-  {% endfor %}
-    <input type="submit" value="Save">
+</div>
 
+<form method="post">{% csrf_token %}
+  <div class="row justify-content-center">
+    <div class="col-6">
+      {% for field in form %}
+      <div class="row justify-content-between field">
+        <div class="col-6">{{ field.label_tag }}</div>
+        <div class="col-6">{{ field }}</div>
+      </div>
+      {% endfor %}
+      <input type="submit" value="Save">
+      <div> or authenticate with
+        <a href="{% url 'social:begin' 'google-oauth2' %}">Google</a>
+        |
+        <a href="/login/vk-oauth2">Vkontakte</a>
+      </div>
+    </div>
+  </div>
 </form>
+
 {% endblock %}
